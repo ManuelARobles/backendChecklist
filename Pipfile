@@ -8,6 +8,7 @@ flask = "*"
 mysql = "*"
 gunicorn = "*"
 mysql-connector = "*"
+flask-mysql-connector = "*"
 
 [dev-packages]
 

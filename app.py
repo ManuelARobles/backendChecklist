@@ -1,25 +1,24 @@
-import os
-from mysql import connector
 from flask import Flask, request, jsonify
-
+import os
+import mysql.connector
 
 app = Flask(__name__)
 
-# Get the JAWSDB_URL
-db_url = os.environ.get('JAWSDB_URL')
+# Get MySQL credentials from environment variable
+JAWSDB_URL = os.environ.get('JAWSDB_URL')
 
-# Function for database connection
+# Function to create and return a database connection
 def get_db_connection():
-    return connector.connect(url=db_url)
+    return mysql.connector.connect(pool_name='my_pool', pool_size=5, **JAWSDB_URL)
 
-# Endpoint to add task to database
+# Endpoint to add a new task to the database
 @app.route('/api/tasks', methods=['POST'])
 def add_task():
     data = request.json
     task_name = data.get('taskName')
     task_status = data.get('taskStatus')
 
-    # Insert new task into database
+    # Insert the new task into the database
     connection = get_db_connection()
     cursor = connection.cursor()
     add_task_query = "INSERT INTO tasks (task_name, task_status) VALUES (%s, %s)"
@@ -30,7 +29,7 @@ def add_task():
 
     return jsonify({'message': 'Task added successfully'}), 201
 
-# Endpoint to fetch all tasks from database
+# Endpoint to fetch all tasks from the database
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
     # Fetch all tasks from the database
@@ -46,4 +45,6 @@ def get_tasks():
 
 if __name__ == '__main__':
     app.run()
+
+
 
