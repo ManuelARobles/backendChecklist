@@ -1,5 +1,5 @@
 import os
-import mysql.connector
+from mysql import connector
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -9,7 +9,7 @@ db_url = os.environ.get('JAWSDB_URL')
 
 # Function for database connection
 def get_db_connection():
-    return mysql.connector.connect(url=db_url)
+    return connector.connect(url=db_url)
 
 # Endpoint to add task to database
 @app.route('/api/tasks', methods=['POST'])
