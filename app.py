@@ -12,10 +12,10 @@ app.config['MYSQL_DATABASE_HOST'] = 'wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds
 app.config['MYSQL_DATABASE_USER'] = 'wkxbnldfzj6jvjs5'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'd86wgakop2kdfxpj'
 app.config['MYSQL_DATABASE_DB'] = 'yyw0pmpuv1euqny3'
-app.config['MYSQL_DATABASE_PORT'] = 3306
 
 # Create the MySQL object
 mysql = MySQL(app)
+
 # Endpoint to add a new task to the database
 @app.route('/api/tasks', methods=['POST'])
 def add_task():
@@ -46,6 +46,7 @@ def get_tasks():
 
 if __name__ == '__main__':
     app.run()
+
 
 
 
