@@ -16,8 +16,6 @@ app.config['MYSQL_DATABASE_PORT'] = 3306
 
 # Create the MySQL object
 mysql = MySQL(app)
-mysql.init_app(app)
-
 # Endpoint to add a new task to the database
 @app.route('/api/tasks', methods=['POST'])
 def add_task():
@@ -26,13 +24,11 @@ def add_task():
     task_status = data.get('taskStatus')
 
     # Insert the new task into the database
-    connection = mysql.connect()
-    cursor = connection.cursor()
+    cursor = mysql.connection.cursor()
     add_task_query = "INSERT INTO tasks (task_name, task_status) VALUES (%s, %s)"
     cursor.execute(add_task_query, (task_name, task_status))
-    connection.commit()
+    mysql.connection.commit()
     cursor.close()
-    connection.close()
 
     return jsonify({'message': 'Task added successfully'}), 201
 
@@ -40,13 +36,11 @@ def add_task():
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
     # Fetch all tasks from the database
-    connection = mysql.connect()
-    cursor = connection.cursor()
+    cursor = mysql.connection.cursor()
     get_tasks_query = "SELECT * FROM tasks"
     cursor.execute(get_tasks_query)
     tasks = [{'id': task[0], 'taskName': task[1], 'taskStatus': task[2]} for task in cursor.fetchall()]
     cursor.close()
-    connection.close()
 
     return jsonify({'tasks': tasks})
 
