@@ -16,6 +16,7 @@ app.config['MYSQL_DATABASE_PORT'] = 3306
 
 # Create the MySQL object
 mysql = MySQL(app)
+mysql.init_app(app)
 
 # Endpoint to add a new task to the database
 @app.route('/api/tasks', methods=['POST'])
