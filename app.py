@@ -8,10 +8,10 @@ app = Flask(__name__)
 db_url = os.environ.get('JAWSDB_URL')
 
 # Configure the MySQL connection
-app.config['MYSQL_DATABASE_HOST'] = db_url.split('@')[1].split('/')[0]
-app.config['MYSQL_DATABASE_USER'] = db_url.split('://')[1].split(':')[0]
-app.config['MYSQL_DATABASE_PASSWORD'] = db_url.split('://')[1].split(':')[1].split('@')[0].split(':')[1]
-app.config['MYSQL_DATABASE_DB'] = db_url.split('/')[-1]
+app.config['wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'] 
+app.config['wkxbnldfzj6jvjs5'] 
+app.config['d86wgakop2kdfxpj'] 
+app.config['yyw0pmpuv1euqny3'] 
 
 # Create the MySQL object
 mysql = MySQL(app)
