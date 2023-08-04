@@ -1,6 +1,5 @@
 import os
 from flask import Flask, request, jsonify
-#from flask_mysql_connector import MySQL, Params
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
@@ -15,19 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://wkxbnldfzj6jvjs5:d86wgakop2kdfx
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
-#app.config[Params.MYSQL_HOST] = 'wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com'
-#app.config[Params.MYSQL_USER] = 'wkxbnldfzj6jvjs5'
-#app.config[Params.MYSQL_PASSWORD] = 'd86wgakop2kdfxpj'
-#app.config[Params.MYSQL_DATABASE] = 'yyw0pmpuv1euqny3'
-
-#connection = mysql.connector.connect(user='wkxbnldfzj6jvjs5',
-#                                     password= 'd86wgakop2kdfxpj' ,
-#                                     host='wb39lt71kvkgdmw0.cbetxkdyhwsb.us-east-1.rds.amazonaws.com' ,
-#                                     database='yyw0pmpuv1euqny3' )
-
-
-# Create the MySQL object
-#mysql = MySQL(app)
 
 # CREATE TASK TABLE
 class Task(db.Model):
@@ -56,14 +42,7 @@ def add_task():
     new_task = Task(task_name, task_status)
     db.session.add(new_task)
     db.session.commit()
-    
 
-    # Insert the new task into the database
-    #cursor = mysql.new_cursor()
-    #add_task_query = "INSERT INTO tasks (task_name, task_status) VALUES (%s, %s)"
-    #cursor.execute(add_task_query, (task_name, task_status))
-    #mysql.connection.commit()
-    #cursor.close()
 
     return jsonify({'message': 'Task added successfully'}), 201
 
@@ -72,19 +51,11 @@ def add_task():
 def get_tasks():
     tasks = Task.query.all()
     return jsonify(tasks_schema.dump(tasks))
-    # Fetch all tasks from the database
-    #cursor = mysql.new_cursor(dictionary=True)
-   # get_tasks_query = "SELECT * FROM tasks"
-    #cursor.execute(get_tasks_query)
-   # tasks = [{'id': task[0], 'taskName': task[1], 'taskStatus': task[2]} for task in cursor.fetchall()]
-   # cursor.close()
-
+    
 
     return jsonify({'tasks': tasks})
 
 if __name__ == '__main__':
     app.run()
-
-
 
 
