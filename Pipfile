@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
-mysql = "*"
 gunicorn = "*"
-mysql-connector = "*"
-flask-mysql-connector = "*"
+mysql-connector-python = "*"
+flask-sqlalchemy = "*"
+flask-marshmallow = "*"
 
 [dev-packages]
 
